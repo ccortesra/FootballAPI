@@ -1,0 +1,68 @@
+*{
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+
+
+html {
+    font-size: 62.5%;
+    font-family: 'Oswald', sans-serif;
+    color: white;
+}
+
+body {
+    background-color: #22577A;
+}
+
+header {
+    height: 100px;
+    width: 100%;
+    padding: 20px;
+}
+
+.title-box {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.8rem;
+}
+
+.leagues-records img {
+    width: 60px;
+}
+
+
+.position-table {
+    width: 90%;
+    background-color: white;
+    margin: 50px auto;
+    border-radius: 15px;
+    border: 1px solid grey;
+    font-size: 1.5rem;
+    color: black;
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    grid-auto-rows: 40px;
+
+}
+
+.table-title, .table-header, .table-item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.table-title {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    font-weight: bold;
+    font-size: 1.9rem;
+    
+}
+
+.table-header {
+    color: grey;
+    font-size: 1.7rem;
+}

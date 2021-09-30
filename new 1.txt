@@ -1,0 +1,7 @@
+
+
+API Football Project
+
+Array Standings : ranks (position), team (object), points, goalsDiff, home_desc(object), 
+away_desc(object).
+
