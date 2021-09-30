@@ -5,3 +5,6 @@ API Football Project
 Array Standings : ranks (position), team (object), points, goalsDiff, home_desc(object), 
 away_desc(object).
 
+Now we gotta change the styles details, example, put colors to the UCL and UEL positions as 
+well as the relegation position, and other details, then we can do a strikers list
+and other info

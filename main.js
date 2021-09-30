@@ -1,7 +1,7 @@
 
 
 
-function CreateContainers(position,name,points) {
+function CreateContainers(position,name,points, logo, pj) {
 
     // Creating the divs for the table
 
@@ -14,21 +14,35 @@ function CreateContainers(position,name,points) {
     const points_container = document.createElement('div')
     points_container.className = 'table-item'
 
+    const pj_container = document.createElement('div')
+    pj_container.className = 'table-item'
+
     // Adding the text
     const p1 = document.createTextNode(`${position}°`)
     const p2 = document.createTextNode(`${name}`)
     const p3 = document.createTextNode(`${points}pts.`)
+    const games_played = document.createTextNode(`${pj}`)
 
     pos_container.appendChild(p1)
     name_container.appendChild(p2)
     points_container.appendChild(p3)
+    pj_container.appendChild(games_played)
     
+    // Adding the photos
+
+    const badge = document.createElement('img')
+    badge.src = logo
+    badge.className = 'team-badge'
+
     // Apending to the parentElement 
     const parentElement = document.querySelector('.position-table')
 
     parentElement.appendChild(pos_container)
+    parentElement.appendChild(pj_container)
     parentElement.appendChild(name_container)
+    parentElement.appendChild(badge)
     parentElement.appendChild(points_container)
+
 }
 
 
@@ -36,15 +50,17 @@ function CreateTable(standings){
     n = standings.length
     
     for(let i = 0; i<n; i++){
-        console.log(i)
+        
         let NewTeam = standings[i]
         const rank = NewTeam.rank
         const name = NewTeam.team.name
         const points = NewTeam.points
+        const logo = NewTeam.team.logo
+        const pj = NewTeam.all.played
 
-        console.log(name)
+       
         
-        CreateContainers(rank,name,points)
+        CreateContainers(rank,name,points,logo,pj)
     }
 
 }

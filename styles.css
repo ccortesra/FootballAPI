@@ -28,9 +28,6 @@ header {
     font-size: 1.8rem;
 }
 
-.leagues-records img {
-    width: 60px;
-}
 
 
 .position-table {
@@ -42,8 +39,8 @@ header {
     font-size: 1.5rem;
     color: black;
     display: grid;
-    grid-template-columns: 25% 50% 25%;
-    grid-auto-rows: 40px;
+    grid-template-columns: 12.5% 12.5% 40% 60px calc(35% - 60px);
+    grid-auto-rows: 60px;
 
 }
 
@@ -51,12 +48,12 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-
+    border-bottom: grey 0.1px solid;
 }
 
 .table-title {
     grid-column-start: 1;
-    grid-column-end: 4;
+    grid-column-end: 6;
     font-weight: bold;
     font-size: 1.9rem;
     
@@ -65,4 +62,13 @@ header {
 .table-header {
     color: grey;
     font-size: 1.7rem;
+}
+
+
+img.team-badge {
+    width: 60px;
+    padding: 5px;
+    border-bottom: grey 0.1px solid;
+    height: 60px;
+
 }
