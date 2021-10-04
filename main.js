@@ -1,7 +1,21 @@
+function IsItSpecialZone(id,pos) {
+    if (id == 39) {
+        // Conditional for premier league european and relegation zones
+        // Premier League , id: 39
+        if ((pos == 18) || (pos == 19) || (pos == 20)){
+            return 'REL'
+        } else if ((pos == 1) || (pos == 2) || (pos == 3) || (pos == 4)){
+            return 'UCL'
+        } else if ((pos == 5)) {
+            return 'UEL'
+        } else {
+            return ''
+        }
+    }
+}
 
 
-
-function CreateContainers(position,name,points, logo, pj) {
+function CreateContainers(position,name,points, logo, pj, SpecialZone) {
 
     // Creating the divs for the table
 
@@ -16,6 +30,8 @@ function CreateContainers(position,name,points, logo, pj) {
 
     const pj_container = document.createElement('div')
     pj_container.className = 'table-item'
+
+    
 
     // Adding the text
     const p1 = document.createTextNode(`${position}°`)
@@ -46,7 +62,7 @@ function CreateContainers(position,name,points, logo, pj) {
 }
 
 
-function CreateTable(standings){
+function CreateTable(standings,id){
     n = standings.length
     
     for(let i = 0; i<n; i++){
@@ -58,9 +74,9 @@ function CreateTable(standings){
         const logo = NewTeam.team.logo
         const pj = NewTeam.all.played
 
-       
+        const SpecialZone = IsItSpecialZone(id,rank)
         
-        CreateContainers(rank,name,points,logo,pj)
+        CreateContainers(rank,name,points,logo,pj, SpecialZone)
     }
 
 }
@@ -103,7 +119,7 @@ function getData(){
         // -------------------------------------------------
         console.log(ArrayStandings)
 
-        CreateTable(ArrayStandings)
+        CreateTable(ArrayStandings,id)
         
 
     }))
