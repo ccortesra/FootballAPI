@@ -1,3 +1,13 @@
+function ColorSpecialZone(SpecialZone, item) {
+    if (SpecialZone == 'UCL') {
+        item.style.background = '#5C7AEA' 
+    } else if(SpecialZone == 'UEL') {
+        item.style.background = 'orange'
+    } else {
+        item.style.background = '#BD1616'
+    }
+}
+
 function IsItSpecialZone(id,pos) {
     if (id == 39) {
         // Conditional for premier league european and relegation zones
@@ -17,7 +27,7 @@ function IsItSpecialZone(id,pos) {
 
 function CreateContainers(position,name,points, logo, pj, SpecialZone) {
 
-    // Creating the divs for the table
+    // Creating the divs for the table ----------------------------------------
 
     const pos_container = document.createElement('div')
     pos_container.className = 'table-item'
@@ -31,9 +41,12 @@ function CreateContainers(position,name,points, logo, pj, SpecialZone) {
     const pj_container = document.createElement('div')
     pj_container.className = 'table-item'
 
-    
+    const special_zone = document.createElement('div')
+    special_zone.className = 'table-item'
 
-    // Adding the text
+    // -----------------------------------------------------------------
+
+    // Adding the text -------------------------------------------------
     const p1 = document.createTextNode(`${position}°`)
     const p2 = document.createTextNode(`${name}`)
     const p3 = document.createTextNode(`${points}pts.`)
@@ -44,13 +57,20 @@ function CreateContainers(position,name,points, logo, pj, SpecialZone) {
     points_container.appendChild(p3)
     pj_container.appendChild(games_played)
     
-    // Adding the photos
+    // Adding the photos ------------------------------------------------
 
     const badge = document.createElement('img')
     badge.src = logo
     badge.className = 'team-badge'
+    // ------------------------------------------------------------------
 
-    // Apending to the parentElement 
+    // Special Zones ----------------------------------------------------
+    if (Boolean(SpecialZone)) {
+        ColorSpecialZone(SpecialZone,special_zone)
+    } 
+    // ------------------------------------------------------------------
+
+    // Apending to the parentElement ------------------------------------ 
     const parentElement = document.querySelector('.position-table')
 
     parentElement.appendChild(pos_container)
@@ -58,7 +78,8 @@ function CreateContainers(position,name,points, logo, pj, SpecialZone) {
     parentElement.appendChild(name_container)
     parentElement.appendChild(badge)
     parentElement.appendChild(points_container)
-
+    parentElement.appendChild(special_zone)
+    // -------------------------------------------------------------------
 }
 
 
@@ -119,10 +140,13 @@ function getData(){
         // -------------------------------------------------
         console.log(ArrayStandings)
 
-        CreateTable(ArrayStandings,id)
-        
+        CreateTable(ArrayStandings,id)       
 
     }))
 }
+
+
+
+
 
 getData();
