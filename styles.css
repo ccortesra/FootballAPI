@@ -56,7 +56,7 @@ header {
     
 }
 
-.section-choice div:hover::after{
+.section-choice div.open:after{
     transform: scale(1,1);
 }
 

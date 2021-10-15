@@ -145,8 +145,46 @@ function getData(){
     }))
 }
 
+function toggle(section) {
+    section.classList.toggle('open');
+}
 
+function shutdown() {
+    const OpenHeaders = document.querySelector('.open')
 
+    if (OpenHeaders != null) {
+        toggle(OpenHeaders);
+    }
+}
 
 
 getData();
+
+
+// Headers of sections animation 
+
+// Closing opens headers first
+
+
+
+
+const StandingsHeader = document.querySelector('.standings-header')
+const StrikersHeader = document.querySelector('.strikers-header')
+const FixturesHeader = document.querySelector('.fixtures-header')
+
+
+StandingsHeader.addEventListener('click', () => {
+    shutdown();
+    toggle(StandingsHeader);
+})
+
+StrikersHeader.addEventListener('click', () => {
+    shutdown();
+    toggle(StrikersHeader);
+})
+
+FixturesHeader.addEventListener('click', () => {
+    shutdown();
+    toggle(FixturesHeader);
+})
+
