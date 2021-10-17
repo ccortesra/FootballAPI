@@ -68,13 +68,15 @@ header {
     border: 1px solid black;
     font-size: 1.5rem;
     color: black;
-    display: grid;
+
     grid-template-columns: 25% 25% 25% 60px calc(25% - 60px);
     grid-auto-rows: 60px;
     display: none;
 }
 
-
+.strikers-table.open{
+    display: grid;
+}
 
 .position-table {
     width: 90%;
@@ -84,10 +86,13 @@ header {
     border: 1px solid black;
     font-size: 1.5rem;
     color: black;
-    display: grid;
+    display: none;
     grid-template-columns: 15% 15% 40% 60px 15% calc(15% - 60px);
     grid-auto-rows: 60px;
+}
 
+.position-table.open {
+    display: grid;
 }
 
 .table-title, .table-header, .table-item{

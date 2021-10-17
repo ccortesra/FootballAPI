@@ -228,15 +228,16 @@ function getData(){
 // Animations
 function toggle(section) {
     section.classList.toggle('open');
-
 }
 
 function shutdown() {
-    const OpenHeaders = document.querySelector('.open')
+    const OpenHeaders = document.querySelectorAll('.open')
+    const OpenArray = Array.from(OpenHeaders)
 
-    if (OpenHeaders != null) {
-        toggle(OpenHeaders);
+    if (OpenHeaders != []) {
+        OpenArray.forEach(toggle)
     }
+
 }
 
 
@@ -252,27 +253,32 @@ getStrikers();
 
 
 const StandingsHeader = document.querySelector('.standings-header')
+const StandingsTable = document.querySelector('.position-table')
 
 
 const StrikersHeader = document.querySelector('.strikers-header')
+const StrikersTable = document.querySelector('.strikers-table')
 
 
 const FixturesHeader = document.querySelector('.fixtures-header')
+const FixturesTable = document.querySelector('.fixtures-table')
 
 
 
 StandingsHeader.addEventListener('click', () => {
     shutdown();
-    toggle(StandingsHeader,StandingsTable);
+    toggle(StandingsHeader);
+    toggle(StandingsTable);
 })
 
 StrikersHeader.addEventListener('click', () => {
     shutdown();
-    toggle(StrikersHeader,StrikersTable);
+    toggle(StrikersHeader);
+    toggle(StrikersTable);
 })
 
 FixturesHeader.addEventListener('click', () => {
     shutdown();
-    toggle(FixturesHeader,FixturesTable);
+    toggle(FixturesHeader);
 })
 
