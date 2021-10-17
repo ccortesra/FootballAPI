@@ -102,8 +102,88 @@ function CreateTable(standings,id){
 
 }
 
+function CreateTableStrikers(strikers) {
+    n = strikers.length
+    
+    for(let i = 0; i<n; i++){
+        
+        const men = strikers[i].player
+        const stats = strikers[i].statistics[0]
+        const rank = i + 1
+        const mp = stats.games.appearences
+        const name = men.name
+        const club = stats.team.logo
+        const goals = stats.goals.total
+        console.log(name + ' ' +goals)
+        
+        CreateContainersStrikers(rank,mp,name,club,goals)
+    }
+}
 
+function CreateContainersStrikers(rank,mp,name,club,goals) {
+    const pos_container = document.createElement('div')
+    pos_container.className = 'table-item'
+
+    const matches_container = document.createElement('div')
+    matches_container.className = 'table-item'
+
+    const name_container = document.createElement('div')
+    name_container.className = 'table-item'
+
+
+    const goal_container = document.createElement('div')
+    goal_container.className = 'table-item'
+
+    const p1 = document.createTextNode(`${rank}°`)
+    const p2 = document.createTextNode(`${mp}`)
+    const p3 = document.createTextNode(`${name}`)
+    const p4 = document.createTextNode(`${goals}`)
+
+    pos_container.appendChild(p1)
+    matches_container.appendChild(p2)
+    name_container.appendChild(p3)
+    goal_container.appendChild(p4)
+
+    // Adding the photos ------------------------------------------------
+
+    const badge = document.createElement('img')
+    badge.src = club
+    badge.className = 'team-badge'
+    // ------------------------------------------------------------------
+
+    const parentElement = document.querySelector('.strikers-table')
+    parentElement.appendChild(pos_container)
+    parentElement.appendChild(matches_container)
+    parentElement.appendChild(name_container)
+    parentElement.appendChild(badge)
+    parentElement.appendChild(goal_container)
+
+}
+
+// -----------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------
 // Fetching
+
+function getStrikers() {
+    fetch("https://v3.football.api-sports.io/players/topscorers?season=2021&league=39", {
+	"method": "GET",
+	"headers": {
+		"x-rapidapi-host": "v3.football.api-sports.io",
+		"x-rapidapi-key": "	ba27db48899659da303f2ef7e650d2e5"
+	}
+    })
+    .then(response => response.json().then(data => {
+        console.log(data)
+        const ResultObject = data['response']
+        CreateTableStrikers(ResultObject)
+    }))
+    .catch(err => {
+        console.log(err);
+    });
+    
+}
+
+
 
 function getData(){
     // Football API
@@ -122,10 +202,7 @@ function getData(){
         // get our data
         // logs to see everything
         console.log(data)
-
         const restultObject = data['response'][0];
-        console.log(restultObject);
-        console.log(restultObject.league);
 
         // Substract the object with infooo
         // -------------------------------------------------
@@ -138,15 +215,20 @@ function getData(){
         const season = league.season
         const ArrayStandings = league.standings[0]
         // -------------------------------------------------
-        console.log(ArrayStandings)
 
         CreateTable(ArrayStandings,id)       
 
     }))
 }
+// ------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------
 
+// ------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------
+// Animations
 function toggle(section) {
     section.classList.toggle('open');
+
 }
 
 function shutdown() {
@@ -159,6 +241,7 @@ function shutdown() {
 
 
 getData();
+getStrikers();
 
 
 // Headers of sections animation 
@@ -169,22 +252,27 @@ getData();
 
 
 const StandingsHeader = document.querySelector('.standings-header')
+
+
 const StrikersHeader = document.querySelector('.strikers-header')
+
+
 const FixturesHeader = document.querySelector('.fixtures-header')
+
 
 
 StandingsHeader.addEventListener('click', () => {
     shutdown();
-    toggle(StandingsHeader);
+    toggle(StandingsHeader,StandingsTable);
 })
 
 StrikersHeader.addEventListener('click', () => {
     shutdown();
-    toggle(StrikersHeader);
+    toggle(StrikersHeader,StrikersTable);
 })
 
 FixturesHeader.addEventListener('click', () => {
     shutdown();
-    toggle(FixturesHeader);
+    toggle(FixturesHeader,FixturesTable);
 })
 

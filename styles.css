@@ -60,6 +60,22 @@ header {
     transform: scale(1,1);
 }
 
+.strikers-table {
+    width: 90%;
+    background-color: white;
+    margin: 50px auto;
+    border-radius: 15px;
+    border: 1px solid black;
+    font-size: 1.5rem;
+    color: black;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 60px calc(25% - 60px);
+    grid-auto-rows: 60px;
+    display: none;
+}
+
+
+
 .position-table {
     width: 90%;
     background-color: white;
@@ -81,12 +97,18 @@ header {
     border-bottom: black 0.1px solid;
 }
 
-.table-title {
+.position-table .table-title {
     grid-column-start: 1;
     grid-column-end: 7;
     font-weight: bold;
     font-size: 1.9rem;
-    
+}
+
+.strikers-table .table-title {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    font-weight: bold;
+    font-size: 1.9rem;
 }
 
 .table-header {
