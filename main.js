@@ -1,3 +1,6 @@
+// -------------------------------------------------------------------------------
+// DOM Manipulation: Standings table
+// -------------------------------------------------------------------------------
 function ColorSpecialZone(SpecialZone, item) {
     if (SpecialZone == 'UCL') {
         item.style.background = '#5C7AEA' 
@@ -101,6 +104,9 @@ function CreateTable(standings,id){
     }
 
 }
+// ---------------------------------------------------------------------------------------
+// DOM Manipulation: Strikers Table
+// ---------------------------------------------------------------------------------------
 
 function CreateTableStrikers(strikers) {
     n = strikers.length
@@ -114,7 +120,6 @@ function CreateTableStrikers(strikers) {
         const name = men.name
         const club = stats.team.logo
         const goals = stats.goals.total
-        console.log(name + ' ' +goals)
         
         CreateContainersStrikers(rank,mp,name,club,goals)
     }
@@ -160,9 +165,87 @@ function CreateContainersStrikers(rank,mp,name,club,goals) {
 
 }
 
+// ----------------------------------------------------------------------------------------
+// DOM Manipulation: Next Fixtures Table
+// ----------------------------------------------------------------------------------------
+
+function CreateTableFixtures (fixtures,matchday) {
+    n = fixtures.length
+    let i = 0
+
+    while (fixtures[i].league.round == matchday && i < n) {
+        const fix = fixtures[i].fixture
+        const teams = fixtures[i].teams
+        const date = fix.date
+        const round = fixtures[i].league.round
+        const home = teams.home.name
+        const HomeBadge = teams.home.logo
+        const away = teams.away.name
+        const AwayBadge = teams.away.logo
+        CreateContainersFixtures(date,round,home,HomeBadge,away,AwayBadge)
+        i = i + 1
+    }
+
+    
+}
+
+function CreateContainersFixtures (date,round,home,badge1,away,badge2) {
+    const match_container = document.createElement('div')
+    match_container.className = 'table-item'
+
+    const date_container = document.createElement('div')
+    date_container.className = 'table-item'
+    return 1
+}
+
 // -----------------------------------------------------------------------------------------
 // -----------------------------------------------------------------------------------------
 // Fetching
+function getCurrentMatch () {
+    fetch("https://v3.football.api-sports.io/fixtures/rounds?season=2021&league=39&current=true"
+    , {
+	"method": "GET",
+	"headers": {
+		"x-rapidapi-host": "v3.football.api-sports.io",
+		"x-rapidapi-key": "	ba27db48899659da303f2ef7e650d2e5"
+	}
+    
+    })
+    .then(response => response.json().then(data => {
+        console.log(data)
+        const ResultObject = data['response']
+        return ResultObject[0]
+    }))
+    .catch(err => {
+        console.log(err);
+    });
+}
+
+// ----------------------------------------------------------------------------
+// variable to control the fixtures that we show :)
+
+const currentMatchDay = getCurrentMatch();
+
+function getFixtures(matchday) {
+    fetch("https://v3.football.api-sports.io/fixtures?season=2021&league=39&from=2021-10-20&to=2021-10-30"
+    , {
+	"method": "GET",
+    "league": 39,
+	"headers": {
+		"x-rapidapi-host": "v3.football.api-sports.io",
+		"x-rapidapi-key": "	ba27db48899659da303f2ef7e650d2e5"
+	}
+    
+    })
+    .then(response => response.json().then(data => {
+        console.log(data)
+        const ResultObject = data['response']
+        console.log(ResultObject)
+    }))
+    .catch(err => {
+        console.log(err);
+    });
+}
 
 function getStrikers() {
     fetch("https://v3.football.api-sports.io/players/topscorers?season=2021&league=39", {
@@ -239,10 +322,16 @@ function shutdown() {
     }
 
 }
-
+//--------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------
+// Getting data from the API 
 
 getData();
 getStrikers();
+getFixtures();
+
+//---------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------
 
 
 // Headers of sections animation 
