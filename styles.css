@@ -85,9 +85,24 @@ header {
     border: 1px solid black;
     font-size: 1.5rem;
     color: black;
-    grid-template-columns: 50% 50%;
-    grid-auto-rows: 60px;
-    display: grid;
+    display: flex;
+}
+
+.match-title, .date-title {
+    width: 50%;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+}   
+
+.match-box, .date-box {
+    width: 50%;
+    height: 100px;
+}
+
+.match-title p, .date-title p {
+    color: grey;
+    font-size: 1.7rem;
 }
 
 .position-table {

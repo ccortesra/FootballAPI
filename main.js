@@ -170,10 +170,17 @@ function CreateContainersStrikers(rank,mp,name,club,goals) {
 // ----------------------------------------------------------------------------------------
 
 function CreateTableFixtures (fixtures,matchday) {
+    debugger
     n = fixtures.length
-    let i = 0
 
-    while (fixtures[i].league.round == matchday && i < n) {
+    matchday_slice = matchday.slice(17,)
+    matchday_number = parseInt(matchday_slice)
+
+    let inicial_idx = (matchday_number-1) *10
+
+
+    for (let i = inicial_idx; i<= inicial_idx+9; i++) {
+    
         const fix = fixtures[i].fixture
         const teams = fixtures[i].teams
         const date = fix.date
@@ -182,26 +189,56 @@ function CreateTableFixtures (fixtures,matchday) {
         const HomeBadge = teams.home.logo
         const away = teams.away.name
         const AwayBadge = teams.away.logo
+        console.log(date,round,home,HomeBadge,away,AwayBadge)
         CreateContainersFixtures(date,round,home,HomeBadge,away,AwayBadge)
-        i = i + 1
     }
 
     
 }
 
 function CreateContainersFixtures (date,round,home,badge1,away,badge2) {
+    // Create two main containers
+    
     const match_container = document.createElement('div')
-    match_container.className = 'table-item'
+    match_container.className = 'match-box'
 
     const date_container = document.createElement('div')
-    date_container.className = 'table-item'
-    return 1
+    date_container.className = 'date-box'
+
+    // Create the content of those containers
+
+    const homeTeam = document.createTextNode(`${home}`)
+    const homeBadge = document.createElement('img')
+    homeBadge.src = badge1
+    const awayTeam = document.createTextNode(`${away}`)
+    const awayBadge = document.createElement('img')
+    awayBadge.src = badge2
+
+    const date_node = document.createTextNode(`${date}`)
+    
+    // Adding content to out two containers
+
+    match_container.appendChild(homeTeam)
+    match_container.appendChild(homeBadge)
+    match_container.appendChild(awayTeam)
+    match_container.appendChild(awayBadge)
+    date_container.appendChild(date_node)
+
+    // Adding everything to the main container
+
+    const parentElement = document.querySelector('.fixtures-table')
+    parentElement.appendChild(match_container)
+    parentElement.appendChild(date_container)
+
+
+ 
+    
 }
 
 // -----------------------------------------------------------------------------------------
 // -----------------------------------------------------------------------------------------
 // Fetching
-function getCurrentMatch () {
+function getCurrentMatch (ResultPastObject) {
     fetch("https://v3.football.api-sports.io/fixtures/rounds?season=2021&league=39&current=true"
     , {
 	"method": "GET",
@@ -214,7 +251,10 @@ function getCurrentMatch () {
     .then(response => response.json().then(data => {
         console.log(data)
         const ResultObject = data['response']
-        return ResultObject[0]
+        console.log('Matchday' + ResultObject[0])
+        result = ResultObject[0]
+        CreateTableFixtures(ResultPastObject,result);
+
     }))
     .catch(err => {
         console.log(err);
@@ -224,10 +264,10 @@ function getCurrentMatch () {
 // ----------------------------------------------------------------------------
 // variable to control the fixtures that we show :)
 
-const currentMatchDay = getCurrentMatch();
 
-function getFixtures(matchday) {
-    fetch("https://v3.football.api-sports.io/fixtures?season=2021&league=39&from=2021-10-20&to=2021-10-30"
+
+function getFixtures() {
+    fetch("https://v3.football.api-sports.io/fixtures?season=2021&league=39"
     , {
 	"method": "GET",
     "league": 39,
@@ -235,12 +275,14 @@ function getFixtures(matchday) {
 		"x-rapidapi-host": "v3.football.api-sports.io",
 		"x-rapidapi-key": "	ba27db48899659da303f2ef7e650d2e5"
 	}
-    
     })
-    .then(response => response.json().then(data => {
-        console.log(data)
+
+    .then(response => response.json().then((data) => {
+        console.log(data);
         const ResultObject = data['response']
-        console.log(ResultObject)
+        console.log(ResultObject);
+        getCurrentMatch(ResultObject);
+
     }))
     .catch(err => {
         console.log(err);
@@ -256,7 +298,6 @@ function getStrikers() {
 	}
     })
     .then(response => response.json().then(data => {
-        console.log(data)
         const ResultObject = data['response']
         CreateTableStrikers(ResultObject)
     }))
@@ -284,7 +325,6 @@ function getData(){
     .then(response => response.json().then(data => {
         // get our data
         // logs to see everything
-        console.log(data)
         const restultObject = data['response'][0];
 
         // Substract the object with infooo
@@ -325,6 +365,7 @@ function shutdown() {
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 // Getting data from the API 
+
 
 getData();
 getStrikers();
