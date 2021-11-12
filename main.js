@@ -170,7 +170,7 @@ function CreateContainersStrikers(rank,mp,name,club,goals) {
 // ----------------------------------------------------------------------------------------
 
 function CreateTableFixtures (fixtures,matchday) {
-    debugger
+    
     n = fixtures.length
 
     matchday_slice = matchday.slice(17,)
@@ -205,23 +205,39 @@ function CreateContainersFixtures (date,round,home,badge1,away,badge2) {
     const date_container = document.createElement('div')
     date_container.className = 'date-box'
 
+    // Another two containers : Home and Away
+    const home_container = document.createElement('div')
+    home_container.className = 'home-box'
+
+    const away_container = document.createElement('div')
+    away_container.className = 'away-box'
     // Create the content of those containers
 
     const homeTeam = document.createTextNode(`${home}`)
     const homeBadge = document.createElement('img')
     homeBadge.src = badge1
+    homeBadge.className = 'team-badge fixture'
     const awayTeam = document.createTextNode(`${away}`)
     const awayBadge = document.createElement('img')
     awayBadge.src = badge2
+    awayBadge.className = 'team-badge fixture'
 
-    const date_node = document.createTextNode(`${date}`)
+    const date_format = date.slice(0,9) 
+    const hour_format = date.slice(11,16)
+    const date_node = document.createTextNode(`${date_format}${hour_format}`)
     
     // Adding content to out two containers
-
-    match_container.appendChild(homeTeam)
-    match_container.appendChild(homeBadge)
-    match_container.appendChild(awayTeam)
-    match_container.appendChild(awayBadge)
+    home_container.appendChild(homeBadge)
+    home_container.appendChild(homeTeam)
+    
+    away_container.appendChild(awayBadge)
+    away_container.appendChild(awayTeam)
+    
+    
+    match_container.appendChild(home_container)
+    match_container.appendChild(away_container)
+    
+    
     date_container.appendChild(date_node)
 
     // Adding everything to the main container
@@ -409,6 +425,7 @@ StrikersHeader.addEventListener('click', () => {
 
 FixturesHeader.addEventListener('click', () => {
     shutdown();
+
     toggle(FixturesHeader);
 })
 

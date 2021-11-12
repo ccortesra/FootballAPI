@@ -86,6 +86,7 @@ header {
     font-size: 1.5rem;
     color: black;
     display: flex;
+    flex-wrap: wrap;
 }
 
 .match-title, .date-title {
@@ -95,14 +96,37 @@ header {
     line-height: 60px;
 }   
 
+.match-title p , .date-title p{
+    text-align: center;
+    margin: auto;
+
+}   
+
 .match-box, .date-box {
     width: 50%;
     height: 100px;
+    display: flex;
+    flex-wrap: wrap;
 }
+.date-box {
+    justify-content: center;
+    align-items: center;
+}
+
+.home-box, .away-box {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
 
 .match-title p, .date-title p {
     color: grey;
     font-size: 1.7rem;
+    width: 50%
 }
 
 .position-table {
@@ -162,4 +186,9 @@ img.team-badge {
     border-bottom: grey 0.1px solid;
     height: 60px;
 
+}
+
+
+img.team-badge.fixture {
+    border-bottom: none;
 }
